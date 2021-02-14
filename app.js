@@ -40,17 +40,19 @@ let slideIndex = 0;
 const selectItem = (event, img) => {
     let element = event.target;
     element.classList.toggle('added');
-
+    
     let item = sliders.indexOf(img);
     if (item === -1) 
     {
         sliders.push(img);
-    } 
-    // else 
-    // {
-    //     sliders.pop(img);
-    //     element.classList.remove('added');
-    // }
+    }
+    else 
+    {
+        let splice = sliders.indexOf(img);
+        sliders.splice(splice, 1);
+        // sliders.pop(img);
+        // element.classList.remove('added');
+    }
 };
 var timer;
 const createSlider = () => {
