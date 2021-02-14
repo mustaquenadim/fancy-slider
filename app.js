@@ -4,6 +4,8 @@ const galleryHeader = document.querySelector('.gallery-header');
 const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
+let counter = parseInt(document.getElementById('counter').innerText);
+// console.log(counter);
 // selected image
 let sliders = [];
 
@@ -16,6 +18,8 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 const showImages = (images) => {
     imagesArea.style.display = 'block';
     loading();
+    counter = 0;
+    document.getElementById('counter').innerText = counter;
     gallery.innerHTML = '';
     // show gallery title
     galleryHeader.style.display = 'flex';
@@ -45,11 +49,15 @@ const selectItem = (event, img) => {
     if (item === -1) 
     {
         sliders.push(img);
+        counter++;
+        document.getElementById('counter').innerText = counter;
     }
     else 
     {
         let splice = sliders.indexOf(img);
         sliders.splice(splice, 1);
+        counter--;
+        document.getElementById('counter').innerText = counter;
         // sliders.pop(img);
         // element.classList.remove('added');
     }
@@ -73,7 +81,7 @@ const createSlider = () => {
 
     sliderContainer.appendChild(prevNext);
     document.querySelector('.main').style.display = 'block';
-    // hide image aria
+    // hide image area
     imagesArea.style.display = 'none';
     const duration =
         Math.abs(document.getElementById('duration').value) || 1000;
@@ -100,12 +108,14 @@ const changeItem = (index) => {
 // change slide item
 const changeSlide = (index) => {
     const items = document.querySelectorAll('.slider-item');
-    if (index < 0) {
+    if (index < 0) 
+    {
         slideIndex = items.length - 1;
         index = slideIndex;
     }
 
-    if (index >= items.length) {
+    if (index >= items.length) 
+    {
         index = 0;
         slideIndex = 0;
     }
@@ -117,14 +127,17 @@ const changeSlide = (index) => {
     items[index].style.display = 'block';
 };
 
-search.addEventListener('keyup', function (event) {
-    if (event.keyCode === 13) {
+search.addEventListener('keyup', function (event) 
+{
+    if (event.keyCode === 13) 
+    {
         event.preventDefault();
         searchBtn.click();
     }
 });
 
-searchBtn.addEventListener('click', function () {
+searchBtn.addEventListener('click', function () 
+{
     document.querySelector('.main').style.display = 'none';
     clearInterval(timer);
     const search = document.getElementById('search');
@@ -133,7 +146,8 @@ searchBtn.addEventListener('click', function () {
     loading();
 });
 
-sliderBtn.addEventListener('click', function () {
+sliderBtn.addEventListener('click', function () 
+{
     createSlider();
 });
 
